@@ -1,0 +1,2 @@
+user,password,account,schema,warehouse,database,role,slack_webhook_url
+wormhole,Dihanoi:3,lg76905.ap-southeast-1,TEST,COMPUTE_WH,WORMHOLE,ACCOUNTADMIN,https://hooks.slack.com/services/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

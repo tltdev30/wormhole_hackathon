@@ -1,0 +1,4 @@
+EmployeeID,FirstName,LastName,Department,Position,Salary
+1,John,Doe,IT,Software Engineer,80000
+2,Jane,Smith,HR,HR Manager,90000
+3,Bob,Johnson,Finance,Accountant,75000
