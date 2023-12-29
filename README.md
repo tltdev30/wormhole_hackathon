@@ -45,14 +45,14 @@ This intelligent, automated process reduces manual intervention, increases adapt
 3. Sending notifications to users/ sending requests or receiving responses
  
    - Automatic deployment cases: a notification will be sent to users after performing production deployment like the below image.
-     ![Alt text](image/auto deploy.JPG)
+    ![Alt text](image-9.png)
    - Deployment approval required cases:
      + Users will receive approval requests in Slack.
-       ![Alt text](image/request-approval.JPG)
+       ![Alt text](image-8.png)
      + When a user interacts with buttons, the response information will be returned to AWS:
        - Approve: trigger deployment lambda and send user notification after deployment.
-         ![Alt text](image/get approval and deploy.JPG)
+         ![Alt text](image-6.png)
        - Deny: Only send a notification to users that proposed DDL/DML was denial like the below image.
-         ![Alt text](image/deny-deployment.JPG)
+         ![Alt text](image-7.png)
 4. Once all issues are resolved, the data pipeline will be triggered to ingest data daily without any errors.
  
