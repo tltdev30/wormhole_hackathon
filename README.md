@@ -9,7 +9,7 @@ This intelligent, automated process reduces manual intervention, increases adapt
  
 ## B. Architecture
  
-![Alt text](image.png)
+![Alt text](image-1.png)
  
 1. Auto change detection
    - When a new data file is pushed to S3 bucket, a s3 event will be sent to a lambda that is responsible for detecting Schema Changes based on comparing them and current table schemas.
