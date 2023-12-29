@@ -1,5 +1,5 @@
 create database WORMHOLE;
-create schema SCHEMA_MANAGEMENT;
+create schema WORMHOLE.SCHEMA_MANAGEMENT;
 
 create or replace TABLE WORMHOLE.SCHEMA_MANAGEMENT.CHANGE_HISTORY (
 	ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 order,
@@ -32,9 +32,9 @@ create or replace TABLE WORMHOLE.SCHEMA_MANAGEMENT.DDL_HISTORY (
 	primary key (ID)
 );
 
-create schema INGESTION;
+create schema WORMHOLE.INGESTION;
 
-create or replace table INGESTION.EMPLOYEES (
+create or replace table WORMHOLE.INGESTION.EMPLOYEES (
     EmployeeID INT PRIMARY KEY,
     FirstName VARCHAR(20),
     LastName VARCHAR(20),
@@ -42,4 +42,11 @@ create or replace table INGESTION.EMPLOYEES (
     Position varchar(50),
     Salary INT
 );
+
+insert into INGESTION.EMPLOYEES 
+(EmployeeID, FirstName, LastName, Department, Position, Salary)
+values
+(1, 'John', 'Doe', 'IT', 'Software Engineer', '80000'),
+(2, 'Jane', 'Smith', 'HR', 'HR Manager', '90000'),
+(3, 'Bob', 'Johnson', 'Finance', 'Accountant', '75000');
 

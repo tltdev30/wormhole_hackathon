@@ -157,6 +157,7 @@ def compare(df1, df2, table_schema, table_name):
         
         # 2. Detect datatype change
         merged_df_data_type = pd.merge(df1, df2, left_on='COLUMN_NAME', right_on='S3_COLUMN_NAME_TRIM', how='outer')
+        merged_df_data_type = merged_df_data_type.dropna(subset=['S3_COLUMN_NAME'])
         merged_df_data_type['Is_changed'] = ((merged_df_data_type['DATA_TYPE'] == 'TEXT') & (merged_df_data_type['CHARACTER_MAXIMUM_LENGTH'] < merged_df_data_type['S3_DATA_LENGTH'])) | ((merged_df_data_type['DATA_TYPE'] == 'NUMBER') & (merged_df_data_type['S3_DATA_TYPE'] != 'int64')) | ((merged_df_data_type['DATA_TYPE'] == 'FLOAT') & (merged_df_data_type['S3_DATA_TYPE'] != 'float64'))
         filtered_df_data_type = merged_df_data_type.loc[(merged_df_data_type['Is_changed'] == True)]
         if not filtered_df_data_type.empty:
