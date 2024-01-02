@@ -1,0 +1,58 @@
+import http.client
+import json
+
+def send_slack_notification(webhook_url, message):
+    if webhook_url is None:
+        print("Webhook URL is not provided. Notification not sent.")
+        return
+
+    try:
+        if 'https://' not in webhook_url:
+            print("Invalid webhook URL format. Notification not sent.")
+            return
+
+        payload = {"text": message}
+        payload_json = json.dumps(payload)
+
+        headers = {"Content-type": "application/json"}
+
+        conn = http.client.HTTPSConnection(webhook_url.split('/')[2])
+        conn.request("POST", f"/{'/'.join(webhook_url.split('/')[3:])}", body=payload_json, headers=headers)
+        response = conn.getresponse()
+
+        if response.status == 200:
+            print("Slack notification sent successfully.")
+        else:
+            print(f"Failed to send Slack notification. Status Code: {response.status}")
+            print(response.read().decode())  # Print additional details from the response
+
+        conn.close()
+
+    except Exception as e:
+        print(f"Error sending Slack notification: {e}")
+        raise e
+
+def lambda_handler(event, context):
+    try:
+        ddl = event.get('ddl')
+        slack_webhook_url = event.get('slackWebhookUrl')
+
+        if ddl is None or slack_webhook_url is None:
+            print("DDL or Slack webhook URL not provided. Notification not sent.")
+            return
+
+        send_slack_notification(slack_webhook_url, f"New DDL statement detected, we will deploy it right away:\n```{ddl}```")
+        print('Done')
+
+    except Exception as e:
+        print(f"Error in lambda_handler: {e}")
+        raise e
+
+# Example event
+event_example = {
+    "ddl": "create or replace TABLE WORMHOLE.TEST.TEST_AUTO_DEPLOY_1 ( EmployeeID NUMBER(38,0) NOT NULL, FirstName VARCHAR(20), LastName VARCHAR(20), Department VARCHAR(20), Position_ VARCHAR(50), Salary NUMBER(38,0), primary key (EmployeeID) );",
+    "slackWebhookUrl": "https://hooks.slack.com/services/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"
+}
+
+# Example invocation
+lambda_handler(event_example, None)
